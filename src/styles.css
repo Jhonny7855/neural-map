@@ -1,0 +1,368 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --bg: #070b14;
+    --panel: #0d1424;
+    --panel2: #151e30;
+    --line: #1e2a42;
+    --ink: #e8edf7;
+    --muted: #8b97ad;
+    --accent: #36d6ff;
+    --ai: #9166ff;
+    --mastery: #5be7a9;
+    --grain: 0.035;
+  }
+
+  [data-theme='deep-space'] {
+    --bg: #04060f;
+    --panel: #090f1d;
+    --panel2: #101a2c;
+    --line: #17233a;
+    --accent: #4f9dff;
+    --ai: #a875ff;
+  }
+
+  [data-theme='midnight'] {
+    --bg: #0a0713;
+    --panel: #120d20;
+    --panel2: #1a132c;
+    --line: #261a3f;
+    --accent: #b98bff;
+    --ai: #ff8ad4;
+    --mastery: #7ef0c4;
+  }
+
+  [data-theme='light'] {
+    color-scheme: light;
+    --bg: #f4f7fc;
+    --panel: #ffffff;
+    --panel2: #eef2fa;
+    --line: #d5deee;
+    --ink: #0f1729;
+    --muted: #5a6782;
+    --accent: #0f8fd1;
+    --ai: #6b3fd4;
+    --mastery: #10a06a;
+    --grain: 0.02;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: Inter, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: var(--grain);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 999px;
+    border: 2px solid var(--bg);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--accent) 45%, var(--line));
+  }
+
+  input,
+  textarea,
+  select {
+    background-color: var(--panel2);
+    color: var(--ink);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Space Grotesk', Inter, sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  .panel {
+    background-color: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+
+  .glass {
+    background: color-mix(in srgb, var(--panel) 82%, transparent);
+    backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid var(--line);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-45;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 92%, #fff 8%), color-mix(in srgb, var(--accent) 60%, var(--ai)));
+    color: #04121b;
+    box-shadow: 0 8px 26px -12px color-mix(in srgb, var(--accent) 70%, transparent);
+  }
+  .btn-primary:hover:not(:disabled) {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    background: color-mix(in srgb, var(--panel2) 80%, transparent);
+    border: 1px solid var(--line);
+    color: var(--ink);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+    background: color-mix(in srgb, var(--accent) 10%, var(--panel2));
+  }
+
+  .btn-ai {
+    background: color-mix(in srgb, var(--ai) 18%, var(--panel2));
+    border: 1px solid color-mix(in srgb, var(--ai) 45%, var(--line));
+    color: var(--ink);
+  }
+  .btn-ai:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--ai) 30%, var(--panel2));
+  }
+
+  .input {
+    @apply w-full rounded-lg px-3 py-2 text-sm outline-none transition;
+    border: 1px solid var(--line);
+    background-color: var(--panel2);
+  }
+  .input:focus {
+    border-color: color-mix(in srgb, var(--accent) 60%, var(--line));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium;
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--panel2) 70%, transparent);
+    color: var(--muted);
+  }
+
+  .kbd {
+    @apply inline-flex items-center rounded px-1.5 py-0.5 font-mono text-[10px];
+    border: 1px solid var(--line);
+    background: var(--panel2);
+    color: var(--muted);
+  }
+
+  .label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.14em];
+    color: var(--muted);
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--line);
+  }
+
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--panel2) 90%, transparent) 25%,
+      color-mix(in srgb, var(--line) 70%, transparent) 37%,
+      color-mix(in srgb, var(--panel2) 90%, transparent) 63%
+    );
+    background-size: 400% 100%;
+    animation: shimmer 1.6s linear infinite;
+  }
+
+  .prose-nm {
+    color: color-mix(in srgb, var(--ink) 88%, transparent);
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+  .prose-nm p {
+    margin-bottom: 0.85rem;
+  }
+  .prose-nm strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .prose-nm code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82em;
+    background: var(--panel2);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 0.1em 0.35em;
+  }
+  .prose-nm ul {
+    margin: 0.5rem 0 0.9rem 1.1rem;
+    list-style: disc;
+  }
+  .prose-nm li {
+    margin-bottom: 0.35rem;
+  }
+  .prose-nm h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 1.1rem 0 0.45rem;
+    color: var(--ink);
+  }
+}
+
+/* ---------- React Flow theming ---------- */
+.react-flow {
+  --xy-background-color: transparent;
+  --xy-edge-stroke: color-mix(in srgb, var(--line) 130%, transparent);
+  --xy-edge-stroke-selected: var(--accent);
+  --xy-connectionline-stroke: var(--accent);
+  --xy-handle-background: var(--panel);
+  --xy-handle-border-color: var(--accent);
+  --xy-selection-background-color: color-mix(in srgb, var(--accent) 8%, transparent);
+  --xy-selection-border: 1px dashed color-mix(in srgb, var(--accent) 50%, transparent);
+  --xy-minimap-background-color: color-mix(in srgb, var(--panel) 92%, transparent);
+  --xy-controls-button-background-color: var(--panel2);
+  --xy-controls-button-background-color-hover: color-mix(in srgb, var(--accent) 18%, var(--panel2));
+  --xy-controls-button-color: var(--muted);
+  --xy-controls-button-color-hover: var(--ink);
+  --xy-controls-button-border-color: var(--line);
+  --xy-attribution-background-color: transparent;
+}
+
+.react-flow__attribution {
+  display: none;
+}
+
+.react-flow__node {
+  font-family: Inter, sans-serif;
+}
+
+.react-flow__edge-path {
+  stroke-width: 1.35;
+}
+
+.react-flow__edge.selected .react-flow__edge-path,
+.react-flow__edge:focus .react-flow__edge-path {
+  stroke: var(--accent);
+  stroke-width: 2.2;
+}
+
+.react-flow__edge.edge-dim .react-flow__edge-path {
+  opacity: 0.12;
+}
+
+.react-flow__edge.edge-hot .react-flow__edge-path {
+  stroke: var(--accent);
+  stroke-width: 2.4;
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--accent) 60%, transparent));
+}
+
+.react-flow__handle {
+  width: 6px;
+  height: 6px;
+  opacity: 0;
+  border-width: 1px;
+}
+
+.react-flow__node:hover .react-flow__handle,
+.react-flow__node.selected .react-flow__handle {
+  opacity: 0.85;
+}
+
+.react-flow__controls {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -14px rgba(0, 0, 0, 0.9);
+}
+
+.react-flow__controls-button {
+  border-bottom: 1px solid var(--line);
+  width: 30px;
+  height: 30px;
+}
+
+.react-flow__minimap {
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.react-flow__minimap-mask {
+  fill: color-mix(in srgb, var(--bg) 72%, transparent);
+}
+
+.react-flow__panel {
+  margin: 12px;
+}
+
+/* ---------- Accessibility / reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+[data-motion='reduced'] *,
+[data-motion='reduced'] *::before,
+[data-motion='reduced'] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+
+[data-motion='reduced'] .react-flow__edge.animated path {
+  animation: none !important;
+  stroke-dasharray: none !important;
+}
+
+:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 80%, transparent);
+  outline-offset: 2px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-on-focus-mode {
+  display: none !important;
+}
